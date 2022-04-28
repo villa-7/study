@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!--将表中字段的下划线自动转换为驼峰-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--开启延迟加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+    </settings>
+    
+    <!--别名设置-->
+    <typeAliases>
+        <package name="com.roger.mybatis.bean"/>
+    </typeAliases>
+
+    <!--插件设置-->
+    <plugins>
+        <!--<plugin interceptor="com.roger.mybatis.plugin.MyPlugin">
+            <property name="name" value="lisi"/>
+            <property name="age" value="25"/>
+        </plugin>-->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+
+        </plugin>
+    </plugins>
+    <!--设置连接数据库的环境-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://roger5:3306/mybatis"/>
+                <property name="username" value="root"/>
+                <property name="password" value="Roger@1234"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--引入映射文件-->
+    <mappers>
+        <package name="com.roger.mybatis.mapper"/>
+        <!--<mapper class="com.roger.mybatis.mapper.UserMapper"/>-->
+    </mappers>
+</configuration>
