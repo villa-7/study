@@ -1,7 +1,8 @@
 package com.roger.bytebuddy.dynamic;
 
-import com.roger.bytebuddy.dynamic.bean.Bar;
-import com.roger.bytebuddy.dynamic.bean.Foo;
+import com.roger.bytebuddy.dynamic.bean.*;
+import com.roger.bytebuddy.dynamic.method.DelegateMooWithSuper;
+import com.roger.bytebuddy.dynamic.method.Moo;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.implementation.FixedValue;
@@ -101,4 +102,21 @@ public class DynamicDemo {
                 .newInstance()
                 .sayHelloFoo();
     }
+
+    public void testMethodDelegation() throws Exception {
+        Moo moo = new ByteBuddy()
+                .subclass(Moo.class)
+                .method(ElementMatchers.named("Moo").or(ElementMatchers.named("Moo1")))
+                //.intercept(MethodDelegation.to(DelegateMoo.class))
+                //测试@Super注解的方法委托
+                .intercept(MethodDelegation.to(DelegateMooWithSuper.class))
+                .make()
+                .load(ClassLoader.getSystemClassLoader())
+                .getLoaded()
+                .newInstance();
+
+        System.out.println("moo:" +  moo.Moo("tinysakura", 21));
+        System.out.println("moo1:" + moo.Moo1("tinysakura"));
+    }
+
 }

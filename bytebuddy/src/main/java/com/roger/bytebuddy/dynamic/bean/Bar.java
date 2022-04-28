@@ -2,6 +2,9 @@ package com.roger.bytebuddy.dynamic.bean;
 
 import net.bytebuddy.implementation.bind.annotation.BindingPriority;
 
+/**
+ * Foo的委托类
+ */
 public class Bar {
 
     /**

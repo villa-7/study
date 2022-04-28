@@ -16,9 +16,11 @@ public class DemoTest {
     }
 
     @Test
-    public void testDelegating() throws InstantiationException, IllegalAccessException {
+    public void testDelegating() throws Exception {
         String result = demo.delegating();
         Assert.assertEquals("Hello in Bar!", result);
+
+        demo.testMethodDelegation();
     }
 
     @Test
